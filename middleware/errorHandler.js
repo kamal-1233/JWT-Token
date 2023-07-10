@@ -1,45 +1,46 @@
-const { constants } = require("../constants");
-const errorHandler = (err,req,res,next) => {
+const errorHandler = (err, req, res, next) => {
     const statusCode = res.statusCode ? res.statusCode : 500;
     switch (statusCode) {
-        case constants.VALIDATION_ERROR:
-            res.json({
-                title:"Validation Failed",
-                message: err.message, 
-                stackTrace: err.stack
-            });
-            break;
-            case constants.NOT_FOUND:
-                res.json({
-                    title:"Not Found",
-                    message: err.message,
-                     stackTrace: err.stack
-                    });
-
-                    case constants.UNAUTHORIZED:
-                        res.json({
-                            title:"Un authorized",
-                            message: err.message,
-                             stackTrace: err.stack
-                            });
-
-                            case constants.FORBIDDEN:
-                                res.json({
-                                    title:"For Bidden",
-                                    message: err.message,
-                                     stackTrace: err.stack
-                                    });
-
-                                    case constants.SERVER_ERROR:
-                                res.json({
-                                    title:"Server Error",
-                                    message: err.message,
-                                     stackTrace: err.stack
-                                    });
-        default:
-            console.log("no Error,All goood !");
-            break;
+      case 422: // Replace with the appropriate validation error status code
+        res.status(statusCode).json({
+          title: "Validation Failed",
+          message: err.message,
+          stackTrace: err.stack,
+        });
+        break;
+      case 404: // Replace with the appropriate not found error status code
+        res.status(statusCode).json({
+          title: "Not Found",
+          message: err.message,
+          stackTrace: err.stack,
+        });
+        break;
+      case 401: // Replace with the appropriate unauthorized error status code
+        res.status(statusCode).json({
+          title: "Unauthorized",
+          message: err.message,
+          stackTrace: err.stack,
+        });
+        break;
+      case 403: // Replace with the appropriate forbidden error status code
+        res.status(statusCode).json({
+          title: "Forbidden",
+          message: err.message,
+          stackTrace: err.stack,
+        });
+        break;
+      case 500: // Replace with the appropriate server error status code
+        res.status(statusCode).json({
+          title: "Server Error",
+          message: err.message,
+          stackTrace: err.stack,
+        });
+        break;
+      default:
+        console.log("No error, all good!");
+        break;
     }
-    };
-
-module.exports = errorHandler;
+  };
+  
+  module.exports = errorHandler;
+  
